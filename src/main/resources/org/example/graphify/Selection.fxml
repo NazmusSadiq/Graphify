@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.graphify.SelectionController">
+    <children>
+        <AnchorPane fx:id="panel2" maxHeight="600.0" maxWidth="900.0" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <Label fx:id="lbPossible" alignment="CENTER" layoutX="-1.0" layoutY="385.0" prefHeight="54.0" prefWidth="900.0" text="Possible algorithms:" textFill="#52f56d" visible="false" wrapText="true">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+                <Label layoutX="250.0" layoutY="114.0" prefHeight="48.0" prefWidth="400.0" text="Select Graph Properties" textFill="#54ff73" AnchorPane.topAnchor="114.0">
+                    <font>
+                        <Font name="Signika Regular" size="37.0" />
+                    </font>
+                </Label>
+                <VBox layoutX="181.0" layoutY="260.0" prefHeight="103.0" prefWidth="175.0" spacing="30.0">
+                    <children>
+                        <JFXRadioButton fx:id="dButton" text="Directed" textFill="#dfe4ea">
+                            <font>
+                                <Font name="Aller" size="19.0" />
+                            </font>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="direction" />
+                            </toggleGroup>
+                     <unSelectedColor>
+                        <Color red="1.0" green="0.9907407164573669" blue="0.9907407164573669" />
+                     </unSelectedColor>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="udButton" text="Undirected" textFill="#dfe4ea" toggleGroup="$direction">
+                            <font>
+                                <Font name="Aller" size="19.0" />
+                            </font>
+                     <unSelectedColor>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </unSelectedColor>
+                        </JFXRadioButton>
+                    </children>
+                </VBox>
+                <VBox layoutX="609.0" layoutY="260.0" prefHeight="103.0" prefWidth="206.0" spacing="25.0">
+                    <children>
+                        <JFXRadioButton fx:id="uwButton" text="Unweighted" textFill="#dfe4ea">
+                            <font>
+                                <Font name="Aller" size="19.0" />
+                            </font>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="weight" />
+                            </toggleGroup>
+                     <unSelectedColor>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </unSelectedColor>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="wButton" text="Weighted" textFill="#dfe4ea" toggleGroup="$weight">
+                            <font>
+                                <Font name="Aller" size="19.0" />
+                            </font>
+                     <unSelectedColor>
+                        <Color red="1.0" green="1.0" blue="1.0" />
+                     </unSelectedColor>
+                        </JFXRadioButton>
+                    </children>
+                </VBox>
+                <JFXButton fx:id="panel1Next" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" layoutX="676.0" layoutY="416.0" prefHeight="31.0" prefWidth="55.0" ripplerFill="WHITE" text="Proceed" AnchorPane.bottomAnchor="73.0" AnchorPane.rightAnchor="69.0">
+                    <graphic>
+                        <ImageView fx:id="imgv" fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../right-arrow.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <tooltip>
+                        <Tooltip text="Select above properties">
+                            <font>
+                                <Font name="Bariol" size="20.0" />
+                            </font>
+                        </Tooltip>
+                    </tooltip>
+                </JFXButton>
+            <JFXButton fx:id="panel1Help" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="68.0" layoutY="425.0" prefHeight="64.0" prefWidth="33.0" ripplerFill="WHITE" text="Confused" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="70.0">
+               <graphic>
+                  <ImageView fx:id="imgc" fitHeight="66.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../confused.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <tooltip>
+                  <Tooltip text="Confused???">
+                     <font>
+                        <Font name="Bariol" size="20.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </JFXButton>
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

@@ -5,7 +5,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -23,12 +22,12 @@ public class WelcomeController {
 
     private void openPanel1Scene() {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Panel1FXML.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Selection.fxml"));
             Parent root = fxmlLoader.load();
             GraphifyMain.primaryStage.setScene(new Scene(root));
             }
          catch (IOException ex) {
-            Logger.getLogger(Panel1Controller.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SelectionController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

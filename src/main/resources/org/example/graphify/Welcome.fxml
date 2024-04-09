@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.graphify.WelcomeController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.graphify.WelcomeController">
    <children>
-      <ImageView fitHeight="620.0" fitWidth="800.0" pickOnBounds="true">
+      <ImageView fitHeight="620.0" fitWidth="900.0" pickOnBounds="true">
          <image>
             <Image url="@../../../Welcome.png" />
          </image>
       </ImageView>
-      <Label layoutX="260.0" layoutY="37.0" text="Welcome to Graphify" textFill="#f01b0a">
+      <Label layoutX="310.0" layoutY="37.0" text="Welcome to Graphify" textFill="#f01b0a">
          <font>
             <Font name="Segoe UI Emoji" size="30.0" />
          </font>
