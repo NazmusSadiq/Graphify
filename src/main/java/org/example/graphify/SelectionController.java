@@ -157,8 +157,6 @@ public class SelectionController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("Canvas.fxml"));
             Parent root = loader.load();
             Scene newScene = new Scene(root);
-            cref = loader.getController();
-            System.out.println("Controller ref: " + cref);
             newScene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
             GraphifyMain.primaryStage.setScene(newScene);
         } catch (IOException ex) {
