@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.HiddenSidesPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.graphify.CanvasController">
+    <children>
+        <StackPane fx:id="stackRoot" prefHeight="600.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="anchorRoot" layoutX="199.0" layoutY="3.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Group fx:id="canvasGroup" layoutX="200.0" layoutY="-3.0" onMouseClicked="#handle" onMouseDragged="#handle" onMousePressed="#handle" onMouseReleased="#handle">
+                    <children>
+                        <Pane fx:id="viewer" onMouseClicked="#handle" onMouseDragged="#handle" onMousePressed="#handle" onMouseReleased="#handle" prefHeight="625.0" prefWidth="702.0">
+                            <cursor>
+                                <Cursor fx:constant="CROSSHAIR" />
+                            </cursor>
+                        </Pane>
+                    </children>
+                </Group>
+                <Pane fx:id="border" layoutX="199.0" layoutY="74.0" prefHeight="546.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0" />
+                <HiddenSidesPane fx:id="hiddenPane" layoutX="200.0" layoutY="71.0" prefHeight="546.0" prefWidth="701.0" style="-fx-background-color: #faeae8;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="73.0">
+                    <cursor>
+                        <Cursor fx:constant="CROSSHAIR" />
+                    </cursor>
+                </HiddenSidesPane>
+            <ImageView fx:id="openHidden" fitHeight="44.0" fitWidth="44.0" layoutX="867.0" layoutY="374.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="287.0" AnchorPane.rightAnchor="-8.0" AnchorPane.topAnchor="289.0">
+               <image>
+                  <Image url="@../../../openHidden.png" />
+               </image>
+            </ImageView>
+            </children>
+        </AnchorPane>
+      <AnchorPane layoutX="199.0" prefHeight="75.0" prefWidth="701.0" style="-fx-background-color: #1a1d2e;" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
+         <children>
+            <JFXButton fx:id="skipButton" contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="16.0" onAction="#SkipHandle" prefHeight="43.0" prefWidth="38.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="100.0">
+               <graphic>
+                  <ImageView fx:id="skipImage" fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../skip.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Skip Animation" textAlignment="CENTER">
+                     <font>
+                        <Font size="12.5" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </JFXButton>
+            <JFXButton fx:id="reloadButton" contentDisplay="GRAPHIC_ONLY" layoutX="600.0" layoutY="17.0" onAction="#ReloadHandle" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="43.0">
+               <graphic>
+                  <ImageView fx:id="reloadImage" fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../reload.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Restart" textAlignment="CENTER">
+                     <font>
+                        <Font size="12.5" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
+            </JFXButton>
+                  <JFXButton fx:id="canvasBackButton" contentDisplay="GRAPHIC_ONLY" layoutX="392.0" layoutY="16.0" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="240.0">
+                      <graphic>
+                          <ImageView fx:id="canvasBack" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true">
+                              <image>
+                                  <Image url="@../../../arrow_back_black_96x96.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+               <tooltip>
+                  <Tooltip text="Go Back" />
+               </tooltip>
+                  </JFXButton>
+                  <JFXButton fx:id="playPauseButton" contentDisplay="GRAPHIC_ONLY" layoutX="442.0" layoutY="16.0" onAction="#PlayPauseHandle" prefHeight="38.0" prefWidth="44.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="190.0">
+                      <graphic>
+                          <ImageView fx:id="playPauseImage" fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                  <Image url="@../../../pause_black_48x48.png" />
+                              </image>
+                          </ImageView>
+                      </graphic>
+                      <tooltip>
+                          <Tooltip text="Pause" textAlignment="CENTER">
+                              <font>
+                                  <Font size="12.5" />
+                              </font>
+                          </Tooltip>
+                      </tooltip>
+                  </JFXButton>
+                  <JFXNodesList fx:id="nodeList" layoutX="496.0" layoutY="13.0" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="150.0">
+               <children>
+                          <JFXButton fx:id="gear" contentDisplay="GRAPHIC_ONLY" prefHeight="51.0" prefWidth="40.0" style="-fx-background-radius: 100;">
+                              <tooltip>
+                                  <Tooltip text="Change Animation Speed" textAlignment="CENTER">
+                                      <font>
+                                          <Font size="12.5" />
+                                      </font>
+                                  </Tooltip>
+                              </tooltip>
+                     <graphic>
+                                  <ImageView fitHeight="42.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                      <image>
+                                          <Image url="@../../../fast_forward_black_48x48.png" />
+                                      </image>
+                                  </ImageView>
+                     </graphic>
+                          </JFXButton>
+               </children>
+                  </JFXNodesList>
+         </children>
+      </AnchorPane>
+          <AnchorPane prefHeight="464.0" prefWidth="201.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-3.0">
+              <children>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="519.0" prefHeight="72.0" prefWidth="181.0" spacing="10.0" AnchorPane.bottomAnchor="0.0">
+                      <opaqueInsets>
+                          <Insets />
+                      </opaqueInsets>
+                      <padding>
+                          <Insets bottom="10.0" left="5.0" right="5.0" top="10.0" />
+                      </padding>
+                  </HBox>
+                  <GridPane hgap="10.0" layoutX="1.0" layoutY="104.0" prefHeight="320.0" prefWidth="200.0" vgap="5.0" AnchorPane.bottomAnchor="203.0" AnchorPane.topAnchor="104.0">
+                      <columnConstraints>
+                          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      </columnConstraints>
+                      <rowConstraints>
+                          <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+                          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
+                          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
+                          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
+                          <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
+                  <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
+                      </rowConstraints>
+                      <children>
+                          <Label prefHeight="31.0" prefWidth="106.0" text="Algorithms" textFill="RED" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <font>
+                                  <Font name="Segoe UI Historic" size="21.0" />
+                              </font>
+                              <GridPane.margin>
+                                  <Insets bottom="10.0" />
+                              </GridPane.margin>
+                          </Label>
+                          <JFXToggleButton id="spec" fx:id="bfsButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#BFSHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="BFS" textFill="#fcfcfc" toggleColor="#ff5722" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="1">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                              <toggleGroup>
+                                  <ToggleGroup fx:id="algoToggleGroup" />
+                              </toggleGroup>
+                     <padding>
+                        <Insets left="-1.0" />
+                     </padding>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="dfsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="46.0" minWidth="-Infinity" onAction="#DFSHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="DFS" textFill="#fcfcfc" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="2">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                     <padding>
+                        <Insets left="-1.0" />
+                     </padding>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="dijkstraButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="91.0" minWidth="-Infinity" onAction="#DijkstraHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="Dijkstra" textFill="#fcfcfc" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="3">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                     <padding>
+                        <Insets left="-1.0" />
+                     </padding>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="bellmanButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="137.0" minWidth="-Infinity" onAction="#BellmanHandle" prefHeight="70.0" prefWidth="210.0" size="9.0" text="Bellman Ford" textFill="#fcfcfc" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="4">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                              <GridPane.margin>
+                                  <Insets top="2.0" />
+                              </GridPane.margin>
+                              <padding>
+                                  <Insets left="-1.0" />
+                              </padding>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="floydButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#FloydWarshallHandle" prefHeight="45.0" prefWidth="210.0" size="9.0" text="Floyd Warshall" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="5">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                              <padding>
+                                  <Insets left="-1.0" />
+                              </padding>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="kruskalButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#KruskalHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Kruskal" textFill="#fafafa" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="6">
+                              <font>
+                                  <Font name="Roboto Light" size="20.0" />
+                              </font>
+                              <GridPane.margin>
+                                  <Insets />
+                              </GridPane.margin>
+                              <padding>
+                                  <Insets left="-1.0" />
+                              </padding>
+                          </JFXToggleButton>
+                  <JFXToggleButton fx:id="primsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="239.0" minWidth="-Infinity" onAction="#PrimsHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Prim's" textFill="#fcfcfc" toggleColor="#ff5722" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="7">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="algoToggleGroup1" />
+                     </toggleGroup>
+                     <font>
+                        <Font name="Roboto Light" size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="-1.0" />
+                     </padding>
+                  </JFXToggleButton>
+                      </children>
+                      <padding>
+                          <Insets left="5.0" right="5.0" />
+                      </padding>
+                  </GridPane>
+                  <VBox layoutX="20.0" layoutY="395.0" prefHeight="102.0" prefWidth="162.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="18.0">
+                      <padding>
+                          <Insets right="27.0" />
+                      </padding>
+                  </VBox>
+            <ImageView fitHeight="58.0" fitWidth="181.0" layoutX="11.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Graphify.png" />
+               </image>
+            </ImageView>
+              </children>
+          </AnchorPane>
+    </children>
+</AnchorPane>
