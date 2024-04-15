@@ -131,11 +131,39 @@
                           </JFXButton>
                </children>
                   </JFXNodesList>
+            <JFXButton fx:id="graphButton" buttonType="RAISED" layoutX="46.0" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: red;" text="Graph" textFill="#fcfcfc">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="detailsButton" buttonType="RAISED" layoutX="187.0" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: red;" text="Details" textFill="#fcfcfc">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
          </children>
       </AnchorPane>
           <AnchorPane prefHeight="464.0" prefWidth="201.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-3.0">
               <children>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="519.0" prefHeight="72.0" prefWidth="181.0" spacing="10.0" AnchorPane.bottomAnchor="0.0">
+                      <children>
+                          <JFXButton fx:id="clearButton" buttonType="RAISED" onAction="#ClearHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: red;" text="CLEAR" textFill="WHITE">
+                              <font>
+                                  <Font name="Junction Regular Regular" size="13.0" />
+                              </font>
+                              <cursor>
+                                  <Cursor fx:constant="HAND" />
+                              </cursor>
+                          </JFXButton>
+                          <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#ResetHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: red;" text="RESET" textFill="WHITE">
+                              <font>
+                                  <Font name="Junction Regular Regular" size="13.0" />
+                              </font>
+                              <cursor>
+                                  <Cursor fx:constant="HAND" />
+                              </cursor>
+                          </JFXButton>
+                      </children>
                       <opaqueInsets>
                           <Insets />
                       </opaqueInsets>
@@ -240,6 +268,18 @@
                       </padding>
                   </GridPane>
                   <VBox layoutX="20.0" layoutY="395.0" prefHeight="102.0" prefWidth="162.0" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="18.0">
+                      <children>
+                          <JFXToggleButton fx:id="addNodeButton" onAction="#AddNodeHandle" prefHeight="19.0" prefWidth="162.0" text="Add Node" textFill="#d3c5c5" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#979797" unToggleLineColor="WHITE">
+                              <font>
+                                  <Font name="Junction Regular Regular" size="13.0" />
+                              </font>
+                          </JFXToggleButton>
+                          <JFXToggleButton fx:id="addEdgeButton" onAction="#AddEdgeHandle" prefHeight="58.0" prefWidth="164.0" text="Add Edge" textFill="#d3c5c5" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#979797" unToggleLineColor="WHITE">
+                              <font>
+                                  <Font name="Junction Regular Regular" size="13.0" />
+                              </font>
+                          </JFXToggleButton>
+                      </children>
                       <padding>
                           <Insets right="27.0" />
                       </padding>

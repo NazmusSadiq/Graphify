@@ -49,7 +49,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 import org.controlsfx.control.HiddenSidesPane;
 
@@ -62,7 +61,7 @@ public class CanvasController implements Initializable, ChangeListener {
     @FXML
     private StackPane stackRoot;
     @FXML
-    private JFXButton canvasBackButton, clearButton, reloadButton,skipButton, playPauseButton,resetButton,pinUnpin,detailsButton,graphButton,compareButton;
+    private JFXButton canvasBackButton, clearButton, reloadButton,skipButton, playPauseButton,resetButton,pinUnpin,detailsButton,graphButton;
     @FXML
     private JFXToggleButton addNodeButton, addEdgeButton, bfsButton, dfsButton, floydButton, dijkstraButton,
             bellmanButton, kruskalButton,primsButton;
@@ -95,7 +94,7 @@ public class CanvasController implements Initializable, ChangeListener {
     static List<Edge> mstEdges = new ArrayList<>(), realEdges = new ArrayList<>(),bellmanEdges = new ArrayList<>();
     static List<Shape> edges = new ArrayList<>();
     static boolean addNode = true, addEdge = false, calculate = false,
-            calculated = false, playing = false, paused = false, pinned = false,detailed=false,compared=false;
+            calculated = false, playing = false, paused = false, pinned = false,detailed=false;
     public static List<Label> distances = new ArrayList<Label>(), visitTime = new ArrayList<>(), lowTime = new ArrayList<Label>();
     static boolean bfs = true, dfs = true, dijkstra = true, kruskal = true,prims=true, floyd = true, bellman = true;
     Algorithm algo = new Algorithm();
@@ -222,9 +221,8 @@ public class CanvasController implements Initializable, ChangeListener {
             e.consume();    //calls quit
         });
         graphButton.setOnMouseClicked(e ->{
-            if (detailed || compared) {
+            if (detailed) {
                 detailed = false;
-                compared = false;
                 hiddenPane.setPinnedSide(null);
                 PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
                 pause.setOnFinished(event -> {
@@ -232,11 +230,10 @@ public class CanvasController implements Initializable, ChangeListener {
                     hiddenRoot.prefHeightProperty().unbind(); // Unbind prefHeight
                     hiddenRoot.setPrefWidth(220);
                     hiddenRoot.setPrefHeight(581);
+                    //detailLabel.setPrefSize(hiddenRoot.getPrefWidth() - 20, 38);
                     detailLabel.setText("Steps");
                     textFlow.clear();
-                    if (bfs || dfs || dijkstra || floyd || bellman || kruskal || prims) {
-                        textFlow.appendText(Algorithm.all.toString());
-                    }
+                    textFlow.appendText(Algorithm.all.toString());
                     //textFlow.setPrefSize(hiddenRoot.getPrefWidth(), hiddenRoot.getPrefHeight() - 2);
                     pinUnpin.setVisible(true);
                     openHidden.setVisible(true);
@@ -244,9 +241,26 @@ public class CanvasController implements Initializable, ChangeListener {
                 pause.play();
             }
         });
-
         detailsButton.setOnMouseClicked(e -> {
-            if (!detailed && !compared) {
+            if (detailed) {
+                detailed = false;
+                hiddenPane.setPinnedSide(null);
+                PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
+                pause.setOnFinished(event -> {
+                    hiddenRoot.prefWidthProperty().unbind(); // Unbind prefWidth
+                    hiddenRoot.prefHeightProperty().unbind(); // Unbind prefHeight
+                    hiddenRoot.setPrefWidth(220);
+                    hiddenRoot.setPrefHeight(581);
+                    //detailLabel.setPrefSize(hiddenRoot.getPrefWidth() - 20, 38);
+                    detailLabel.setText("Steps");
+                    textFlow.clear();
+                    textFlow.appendText(Algorithm.all.toString());
+                    //textFlow.setPrefSize(hiddenRoot.getPrefWidth(), hiddenRoot.getPrefHeight() - 2);
+                    pinUnpin.setVisible(true);
+                    openHidden.setVisible(true);
+                });
+                pause.play();
+            } else {
                 detailed = true;
                 if(pinned) {
                     hiddenPane.setPinnedSide(null);
@@ -255,13 +269,8 @@ public class CanvasController implements Initializable, ChangeListener {
                 pause.setOnFinished(event -> {
                     detailLabel.setText("Details");
                     pinUnpin.setGraphic(imgPin);
-                    textFlow.clear();
-                    if (bfs || dfs || dijkstra || floyd || bellman || kruskal || prims) {
-                        textFlow.appendText(Algorithm.all.toString());
-                        if (Algorithm.finished) {
-                            textFlow.appendText(Algorithm.detes.toString());
-                        }
-                    }
+                    if(Algorithm.finished)
+                        textFlow.appendText(Algorithm.detes.toString());
                     //textFlow.setPrefSize(border.getPrefWidth(), border.getPrefHeight() - 2);
                     hiddenRoot.prefHeightProperty().bind(border.heightProperty());
                     hiddenRoot.prefWidthProperty().bind(border.widthProperty());
@@ -274,43 +283,12 @@ public class CanvasController implements Initializable, ChangeListener {
                     openHidden.setVisible(false);
                 });
                 pause.play();
-                hiddenPane.setPinnedSide(null);
-                pinned = false;
             }
+            hiddenPane.setPinnedSide(null);
+            pinned = false;
         });
-
-        compareButton.setOnMouseClicked(e -> {
-            if (!compared && !detailed) {
-                compared = true;
-                if(pinned) {
-                    hiddenPane.setPinnedSide(null);
-                }
-                //hiddenPane.setTriggerDistance(0);
-                PauseTransition pause = new PauseTransition(Duration.seconds(0.5));
-                pause.setOnFinished(event -> {
-                    detailLabel.setText("Comparison");
-                    pinUnpin.setGraphic(imgPin);
-                    textFlow.clear();
-                    compare();
-                    //textFlow.setPrefSize(border.getPrefWidth(), border.getPrefHeight() - 2);
-                    hiddenRoot.prefHeightProperty().bind(border.heightProperty());
-                    hiddenRoot.prefWidthProperty().bind(border.widthProperty());
-                    hiddenPane.setPinnedSide(Side.RIGHT);
-                    hiddenRoot.setTopAnchor(border, 73.0);
-                    hiddenRoot.setRightAnchor(border, 0.0);
-                    hiddenRoot.setBottomAnchor(border, 0.0);
-                    hiddenRoot.setLeftAnchor(border, 200.0);
-                    pinUnpin.setVisible(false);
-                    openHidden.setVisible(false);
-                });
-                pause.play();
-                hiddenPane.setPinnedSide(null);
-                pinned = false;
-            }
-        });
-
         hiddenRoot.setOnMouseExited(e -> {
-            if (!pinned && !detailed && !compared) {
+            if (!pinned && !detailed) {
                 hiddenPane.setPinnedSide(null);
                 openHidden.setVisible(true);
             }
@@ -319,7 +297,6 @@ public class CanvasController implements Initializable, ChangeListener {
         hiddenPane.setTriggerDistance(60);      // automatically expand/collapse in this range
         algo_Setup();
     }
-
 
     /**
      * Change Listener for change in speed slider values.
@@ -428,7 +405,7 @@ public class CanvasController implements Initializable, ChangeListener {
                     if (selectedNode != null) {
                         if (addEdge && !edgeExists(selectedNode, circle)) {
                             weight = new Label();
-                            //System.out.println("Adding Edge");
+                            System.out.println("Adding Edge");
                             //Adds the edge between two selected nodes
                             double angle = Math.atan2((circle.point.y - selectedNode.point.y), (circle.point.x - selectedNode.point.x));
                             double startX = selectedNode.point.x + nodeRadius * 12* Math.cos(angle);
@@ -597,14 +574,14 @@ public class CanvasController implements Initializable, ChangeListener {
      */
     @FXML
     public void PlayPauseHandle(ActionEvent event) {
-        //System.out.println("IN PLAYPAUSE");
+        System.out.println("IN PLAYPAUSE");
         System.out.println(playing + " " + paused);
 
         try {
             if (playing && st != null && st.getStatus() == Animation.Status.RUNNING) {
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
-                //System.out.println("Pausing");
+                System.out.println("Pausing");
                 st.pause();
                 paused = true;
                 playing = false;
@@ -633,6 +610,7 @@ public class CanvasController implements Initializable, ChangeListener {
      */
     @FXML
     public void SkipHandle(ActionEvent event) {
+        System.out.println("Skipped to end");
         try {
             if (st != null && st.getStatus() == Animation.Status.RUNNING) {
                 st.stop();
@@ -668,30 +646,35 @@ public class CanvasController implements Initializable, ChangeListener {
                 dfsButton.setSelected(true);
                 dfs=true;
                 algo.newDFS(universalNode);
+                System.out.println("Reloading dfs");
             }
             else if (bfs) {
                 ClearHandle(null);
                 bfsButton.setSelected(true);
                 bfs=true;
                 algo.newBFS(universalNode);
+                System.out.println("Reloading bfs");
             }
             else if(dijkstra) {
                 ClearHandle(null);
                 dijkstraButton.setSelected(true);
                 dijkstra=true;
                 algo.newDijkstra(universalNode);
+                System.out.println("Reloading dijkstra");
             }
             else if(bellman) {
                 ClearHandle(null);
                 bellmanButton.setSelected(true);
                 bellman=true;
                 algo.newBellmanFord(universalNode);
+                System.out.println("Reloading bellman");
             }
             else if(floyd) {
                 ClearHandle(null);
                 floydButton.setSelected(true);
                 floyd=true;
                 algo.newFloydWarshall(universalNode);
+                System.out.println("Reloading floyd");
             }
             addNodeButton.setDisable(true);
             addEdgeButton.setDisable(true);
@@ -703,6 +686,7 @@ public class CanvasController implements Initializable, ChangeListener {
                 algo.newKruskal();
                 addNodeButton.setDisable(true);
                 addEdgeButton.setDisable(true);
+                System.out.println("Reloading kruskal");
             } else if (prims) {
                 ClearHandle(null);
                 kruskalButton.setSelected(true);
@@ -710,6 +694,7 @@ public class CanvasController implements Initializable, ChangeListener {
                 addNodeButton.setDisable(true);
                 addEdgeButton.setDisable(true);
                 algo.newPrims();
+                System.out.println("Reloading prims");
             }
             else {
                 System.out.println("Nothing played yet. Unable to replay.");
@@ -781,6 +766,7 @@ public class CanvasController implements Initializable, ChangeListener {
         menuBool = false;
         selectedNode = null;
         calculated = false;
+        System.out.println("IN CLEAR:" + circles.size());
         for (NodeFX n : circles) {
             n.isSelected = false;
             n.node.visited = false;
@@ -819,9 +805,7 @@ public class CanvasController implements Initializable, ChangeListener {
             x.setText("Low Value : NULL");
             canvasGroup.getChildren().remove(x);
         }
-        if(!compared) {
-            textFlow.clear();
-        }
+        textFlow.clear();
 
         Image image = new Image(getClass().getResourceAsStream("/pause_black_48x48.png"));
         playPauseImage.setImage(image);
@@ -1024,13 +1008,13 @@ public class CanvasController implements Initializable, ChangeListener {
      * @param source Node reference of selected node
      */
     public void changeID(NodeFX source) {
-        //System.out.println("Before-------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name);
-//            }
-//        }
+        System.out.println("Before-------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name);
+            }
+        }
         selectedNode = null;
 
         TextInputDialog dialog = new TextInputDialog(Integer.toString(nNode));
@@ -1049,7 +1033,7 @@ public class CanvasController implements Initializable, ChangeListener {
                 for(NodeFX n:circles){
                     if(Integer.parseInt(n.id.getText())==Integer.parseInt(value)){
                         res=cur;
-                        //System.out.println("This ID already exists");
+                        System.out.println("This ID already exists");
                         break;
                     }
                 }
@@ -1062,13 +1046,13 @@ public class CanvasController implements Initializable, ChangeListener {
         circles.get(circles.indexOf(source)).id.setText(res);
         circles.get(circles.indexOf(source)).node.name = res;
 
-//        System.out.println("AFTER----------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name);
-//            }
-//        }
+        System.out.println("AFTER----------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name);
+            }
+        }
     }
 
     /**
@@ -1078,13 +1062,13 @@ public class CanvasController implements Initializable, ChangeListener {
      */
     public void deleteNode(NodeFX sourceFX) {
         selectedNode = null;
-//        System.out.println("Before-------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name);
-//            }
-//        }
+        System.out.println("Before-------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name);
+            }
+        }
 
         Node source = sourceFX.node;
         circles.remove(sourceFX);
@@ -1136,13 +1120,13 @@ public class CanvasController implements Initializable, ChangeListener {
         canvasGroup.getChildren().remove(sourceFX.id);
         canvasGroup.getChildren().remove(sourceFX);
 
-//        System.out.println("AFTER----------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name);
-//            }
-//        }
+        System.out.println("AFTER----------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name);
+            }
+        }
     }
 
     /**
@@ -1151,13 +1135,13 @@ public class CanvasController implements Initializable, ChangeListener {
      * @param sourceEdge
      */
     public void deleteEdge(Edge sourceEdge) {
-//        System.out.println("Before-------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name);
-//            }
-//        }
+        System.out.println("Before-------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name);
+            }
+        }
 
         System.out.println(sourceEdge.source.name + " -- " + sourceEdge.target.name);
         List<Edge> ls1 = new ArrayList<>();
@@ -1178,6 +1162,7 @@ public class CanvasController implements Initializable, ChangeListener {
                 canvasGroup.getChildren().remove(e.weightLabel);
             }
         }
+        System.out.println("sdsdsd  " + ls1.size());
         sourceEdge.source.adjacents.removeAll(ls1);
         sourceEdge.target.adjacents.removeAll(ls1);
         realEdges.removeAll(ls1);
@@ -1188,13 +1173,13 @@ public class CanvasController implements Initializable, ChangeListener {
         edges.removeAll(lshape2);
         canvasGroup.getChildren().removeAll(lshape2);
 
-//        System.out.println("AFTER----------");
-//        for (NodeFX p : circles) {
-//            System.out.println(p.node.name + " - ");
-//            for (Edge q : p.node.adjacents) {
-//                System.out.println(q.source.name + " " + q.target.name);
-//            }
-//        }
+        System.out.println("AFTER----------");
+        for (NodeFX p : circles) {
+            System.out.println(p.node.name + " - ");
+            for (Edge q : p.node.adjacents) {
+                System.out.println(q.source.name + " " + q.target.name);
+            }
+        }
     }
 
 
@@ -1205,13 +1190,13 @@ public class CanvasController implements Initializable, ChangeListener {
      * @param sourceEdge
      */
     public void changeWeight(Edge sourceEdge) {
-//        System.out.println("Before-------");
-//        for (NodeFX u : circles) {
-//            System.out.println(u.node.name + " - ");
-//            for (Edge v : u.node.adjacents) {
-//                System.out.println(v.source.name + " " + v.target.name + " weight: " + v.weight);
-//            }
-//        }
+        System.out.println("Before-------");
+        for (NodeFX u : circles) {
+            System.out.println(u.node.name + " - ");
+            for (Edge v : u.node.adjacents) {
+                System.out.println(v.source.name + " " + v.target.name + " weight: " + v.weight);
+            }
+        }
 
         TextInputDialog dialog = new TextInputDialog("0");
         dialog.setTitle(null);
@@ -1247,13 +1232,13 @@ public class CanvasController implements Initializable, ChangeListener {
             }
         }
 
-//        System.out.println("AFTER----------");
-//        for (NodeFX p : circles) {
-//            System.out.println(p.node.name + " - ");
-//            for (Edge q : p.node.adjacents) {
-//                System.out.println(q.source.name + " " + q.target.name + " weight: " + q.weight);
-//            }
-//        }
+        System.out.println("AFTER----------");
+        for (NodeFX p : circles) {
+            System.out.println(p.node.name + " - ");
+            for (Edge q : p.node.adjacents) {
+                System.out.println(q.source.name + " " + q.target.name + " weight: " + q.weight);
+            }
+        }
     }
 
     /**
@@ -1294,150 +1279,10 @@ public class CanvasController implements Initializable, ChangeListener {
             });
 
             circles.add(this);
-            //System.out.println("ADDing: " + circles.size());
+            System.out.println("ADDing: " + circles.size());
         }
     }
 
-    public void compare()
-    {
-        if(bfs)
-        {
-            ClearHandle(null);
-            StringBuilder bfsstr= new StringBuilder("\n\t\tFor BFS:\n\n");
-            bfsstr.append(Algorithm.bfsDetes);
-            algo.newDFS(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(bfsstr.toString());
-            StringBuilder dfsstr= new StringBuilder("\n\t\tFor DFS:\n\n");
-            dfsstr.append(Algorithm.dfsDetes);
-            ClearHandle(null);
-            bfs=true;
-            algo.newBFS(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(dfsstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(dfs)
-        {
-            ClearHandle(null);
-            StringBuilder dfsstr= new StringBuilder("\n\t\tFor DFS:\n\n");
-            dfsstr.append(Algorithm.dfsDetes);
-            algo.newBFS(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(dfsstr.toString());
-            StringBuilder bfsstr= new StringBuilder("\n\t\tFor BFS:\n\n");
-            bfsstr.append(Algorithm.bfsDetes);
-            ClearHandle(null);
-            dfs=true;
-            algo.newDFS(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(bfsstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(dijkstra)
-        {
-            ClearHandle(null);
-            StringBuilder dijkstr= new StringBuilder("\n\t\tFor Dijkstra:\n\n");
-            dijkstr.append(Algorithm.dijkDetes);
-            algo.newFloydWarshall(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(dijkstr.toString());
-            StringBuilder fwstr= new StringBuilder("\n\t\tFor Floyd Warshall :\n\n");
-            fwstr.append(Algorithm.fwDetes);
-            ClearHandle(null);
-            algo.newBellmanFord(universalNode);
-            SkipHandle(null);
-            StringBuilder bfstr= new StringBuilder("\n\t\tFor Bellman Ford :\n\n");
-            bfstr.append(Algorithm.bfDetes);
-            ClearHandle(null);
-            dijkstra=true;
-            algo.newDijkstra(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(fwstr.toString());
-            textFlow.appendText(bfstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(bellman)
-        {
-            ClearHandle(null);
-            StringBuilder bfstr= new StringBuilder("\n\t\tFor Bellman Ford:\n\n");
-            bfstr.append(Algorithm.bfDetes);
-            algo.newFloydWarshall(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(bfstr.toString());
-            StringBuilder fwstr= new StringBuilder("\n\t\tFor Floyd Warshall :\n\n");
-            fwstr.append(Algorithm.fwDetes);
-            ClearHandle(null);
-            algo.newDijkstra(universalNode);
-            SkipHandle(null);
-            StringBuilder dijkstr= new StringBuilder("\n\t\tFor Dijkstra :\n\n");
-            dijkstr.append(Algorithm.dijkDetes);
-            ClearHandle(null);
-            bellman=true;
-            algo.newBellmanFord(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(fwstr.toString());
-            textFlow.appendText(dijkstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(floyd)
-        {
-            ClearHandle(null);
-            StringBuilder fwstr= new StringBuilder("\n\t\tFor Floyd Warshall:\n\n");
-            fwstr.append(Algorithm.fwDetes);
-            algo.newDijkstra(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(fwstr.toString());
-            StringBuilder dijkstr= new StringBuilder("\n\t\tFor Dijkstra :\n\n");
-            dijkstr.append(Algorithm.dijkDetes);
-            ClearHandle(null);
-            algo.newBellmanFord(universalNode);
-            SkipHandle(null);
-            StringBuilder bfstr= new StringBuilder("\n\t\tFor Bellman Ford :\n\n");
-            bfstr.append(Algorithm.bfDetes);
-            ClearHandle(null);
-            floyd=true;
-            algo.newFloydWarshall(universalNode);
-            SkipHandle(null);
-            textFlow.appendText(dijkstr.toString());
-            textFlow.appendText(bfstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(kruskal)
-        {
-            ClearHandle(null);
-            StringBuilder krusstr= new StringBuilder("\n\t\tFor Kruskal:\n\n");
-            krusstr.append(Algorithm.krusDetes);
-            algo.newPrims();
-            SkipHandle(null);
-            textFlow.appendText(krusstr.toString());
-            StringBuilder primsstr= new StringBuilder("\n\t\tFor Prims:\n\n");
-            primsstr.append(Algorithm.primsDetes);
-            ClearHandle(null);
-            kruskal=true;
-            algo.newKruskal();
-            SkipHandle(null);
-            textFlow.appendText(primsstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-        else if(prims)
-        {
-            ClearHandle(null);
-            StringBuilder primsstr= new StringBuilder("\n\t\tFor Prims:\n\n");
-            primsstr.append(Algorithm.primsDetes);
-            algo.newKruskal();
-            SkipHandle(null);
-            textFlow.appendText(primsstr.toString());
-            StringBuilder krusstr= new StringBuilder("\n\t\tFor Kruskal:\n\n");
-            krusstr.append(Algorithm.krusDetes);
-            ClearHandle(null);
-            prims=true;
-            algo.newPrims();
-            SkipHandle(null);
-            textFlow.appendText(krusstr.toString());
-            textFlow.appendText("\t\tComparison Done");
-        }
-    }
     public void algo_Setup() {
         Algorithm.canvasGroup = canvasGroup;
         Algorithm.sourceText = sourceText;

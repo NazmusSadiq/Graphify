@@ -59,7 +59,6 @@ public class Algorithm implements Initializable {
     static Boolean finished=false;
     static StringBuilder all=new StringBuilder();
     static StringBuilder detes=new StringBuilder();
-    static String bfsDetes=new String(),dfsDetes=new String(),dijkDetes=new String(),fwDetes=new String(),bfDetes=new String(),krusDetes=new String(),primsDetes=new String();
     int repeats=0,unioned=0;
 
     @Override
@@ -83,14 +82,10 @@ public class Algorithm implements Initializable {
             all=new StringBuilder();
             finished=false;
             repeats=0;
-
             // Start measuring time
             Instant start = Instant.now();
 
-            System.out.println("In BFS");
-
             // Set labels and distances
-
             for (CanvasController.NodeFX n : CanvasController.circles) {
                 CanvasController.distances.add(n.distance);
                 n.distance.setLayoutX(n.point.x + 20);
@@ -100,7 +95,6 @@ public class Algorithm implements Initializable {
             sourceText.setLayoutX(source.circle.point.x + 20);
             sourceText.setLayoutY(source.circle.point.y + 10);
             canvasGroup.getChildren().add(sourceText);
-
             CanvasController.st = new SequentialTransition();
             source.circle.distance.setText("Dist. : " + 0);
 
@@ -124,9 +118,7 @@ public class Algorithm implements Initializable {
                 final String str2 = str;
                 FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fd.setOnFinished(e -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(str2);
-                    }
+                    CanvasController.textFlow.appendText(str2);
                 });
                 fd.onFinishedProperty();
                 CanvasController.st.getChildren().add(fd);
@@ -168,9 +160,7 @@ public class Algorithm implements Initializable {
                             final String str1 = str;
                             FadeTransition fd2 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                             fd2.setOnFinished(ev -> {
-                                if(!CanvasController.compared) {
-                                    CanvasController.textFlow.appendText(str1);
-                                }
+                                CanvasController.textFlow.appendText(str1);
                             });
                             fd2.onFinishedProperty();
                             CanvasController.st.getChildren().add(fd2);
@@ -188,14 +178,8 @@ public class Algorithm implements Initializable {
 
             // Calculate duration
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total time for BFS: " + duration.toNanos() + " nanoseconds");
+            System.out.println("Total time for BFS: " + duration.toMillis() + " milliseconds");
 
-            detes=new StringBuilder();
-            detes.append("Total Time Required For BFS: " + duration.toNanos() + " nanoseconds"+'\n');
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            detes.append("Number Of Repeated Nodes: "+ repeats+'\n');
-            bfsDetes=detes.toString();
-            System.out.println("bfsDetes: "+bfsDetes);
             // Animation Control
             CanvasController.st.setOnFinished(ev -> {
                 for (CanvasController.NodeFX n : CanvasController.circles) {
@@ -212,6 +196,10 @@ public class Algorithm implements Initializable {
                         n.setStroke(Color.BLACK);
                     }
                 }
+                detes=new StringBuilder();
+                detes.append("Total Time Required For BFS: " + duration.toMillis() + " milliseconds"+'\n');
+                detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
+                detes.append("Number Of Repeated Nodes: "+ repeats+'\n');
                 FillTransition ft1 = new FillTransition(Duration.millis(CanvasController.time), source.circle);
                 ft1.setToValue(Color.RED);
                 ft1.play();
@@ -219,15 +207,9 @@ public class Algorithm implements Initializable {
                 playPauseImage.setImage(image);
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-//                else {
-//                    CanvasController.textFlow.appendText(detes.toString());
-//                }
-                //CanvasController.textFlow.appendText("\n\t\t---Finished--\n\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
@@ -248,12 +230,14 @@ public class Algorithm implements Initializable {
 
     class DFS {
         DFS(Node source) {
-            System.out.println("In DFS");
             CanvasController.universalNode=source;
             all=new StringBuilder();
             finished=false;
             repeats=0;
             //<editor-fold defaultstate="collapsed" desc="Animation Setup Distances">
+
+            //Start measuring time
+            Instant start = Instant.now();
 
             for (CanvasController.NodeFX n : CanvasController.circles) {
                 CanvasController.distances.add(n.distance);
@@ -265,13 +249,9 @@ public class Algorithm implements Initializable {
             sourceText.setLayoutX(source.circle.point.x + 20);
             sourceText.setLayoutY(source.circle.point.y + 10);
             canvasGroup.getChildren().add(sourceText);
-
             CanvasController.st = new SequentialTransition();
             source.circle.distance.setText("Dist. : " + 0);
             //</editor-fold>
-
-            //Start measuring time
-            Instant start = Instant.now();
 
             source.minDistance = 0;
             source.visited = true;
@@ -282,14 +262,8 @@ public class Algorithm implements Initializable {
 
             // Calculate duration
             java.time.Duration duration = java.time.Duration.between(start, end);
-            System.out.println("Total time for DFS: " + duration.toNanos() + " nanoseconds");
+            System.out.println("Total time for DFS: " + duration.toMillis() + " milliseconds");
 
-            detes=new StringBuilder();
-            detes.append("Total Time Required For DFS: " + duration.toNanos() + " nanoseconds"+'\n');
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            detes.append("Number Of Repeated Nodes: "+ repeats+'\n');
-            dfsDetes=detes.toString();
-            System.out.println("dfsDetes: "+dfsDetes);
             //<editor-fold defaultstate="collapsed" desc="Animation after algorithm is finished">
             CanvasController.st.setOnFinished(ev -> {
                 for (CanvasController.NodeFX n : CanvasController.circles) {
@@ -311,22 +285,18 @@ public class Algorithm implements Initializable {
                 ft1.play();
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
-
+                detes=new StringBuilder();
+                detes.append("Total Time Required For DFS: " + duration.toMillis() + " milliseconds"+'\n');
+                detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
+                detes.append("Number Of Repeated Nodes: "+ repeats+'\n');
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-//                else {
-//                    CanvasController.textFlow.appendText(detes.toString());
-//                }
-                //CanvasController.textFlow.appendText("---Finished--\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
-
                 finished=true;
             });
             CanvasController.st.onFinishedProperty();
@@ -353,9 +323,7 @@ public class Algorithm implements Initializable {
             final String str2 = str;
             FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
             fd.setOnFinished(e -> {
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.appendText(str2);
-                }
+                CanvasController.textFlow.appendText(str2);
             });
             fd.onFinishedProperty();
             CanvasController.st.getChildren().add(fd);
@@ -415,9 +383,7 @@ public class Algorithm implements Initializable {
             final String str1 = str;
             fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
             fd.setOnFinished(e -> {
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.appendText(str1);
-                }
+                CanvasController.textFlow.appendText(str1);
             });
             fd.onFinishedProperty();
             CanvasController.st.getChildren().add(fd);
@@ -438,6 +404,8 @@ public class Algorithm implements Initializable {
             finished=false;
             //<editor-fold defaultstate="collapsed" desc="Animation Control">
 
+            //Start measuring time
+            Instant start = Instant.now();
             for (CanvasController.NodeFX n : CanvasController.circles) {
                 CanvasController.distances.add(n.distance);
                 n.distance.setLayoutX(n.point.x + 20);
@@ -450,9 +418,6 @@ public class Algorithm implements Initializable {
             CanvasController.st = new SequentialTransition();
             source.circle.distance.setText("Dist. : " + 0);
             //</editor-fold>
-
-            //Start measuring time
-            Instant start = Instant.now();
 
             source.minDistance = 0;
             PriorityQueue<Node> pq = new PriorityQueue<Node>();
@@ -469,9 +434,7 @@ public class Algorithm implements Initializable {
                 final String str2 = str;
                 FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fd.setOnFinished(e -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(str2);
-                    }
+                    CanvasController.textFlow.appendText(str2);
                 });
                 fd.onFinishedProperty();
                 CanvasController.st.getChildren().add(fd);
@@ -518,9 +481,7 @@ public class Algorithm implements Initializable {
                             final String str1 = str;
                             FadeTransition fd2 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                             fd2.setOnFinished(ev -> {
-                                if(!CanvasController.compared) {
-                                    CanvasController.textFlow.appendText(str1);
-                                }
+                                CanvasController.textFlow.appendText(str1);
                             });
                             fd2.onFinishedProperty();
                             CanvasController.st.getChildren().add(fd2);
@@ -539,13 +500,8 @@ public class Algorithm implements Initializable {
 
             // Calculate duration
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total Time For Dijkstra: " + duration.toNanos() + " nanoseconds");
+            System.out.println("Total time for Dijkstra: " + duration.toMillis() + " milliseconds");
 
-            detes=new StringBuilder();
-            detes.append("Total Time Required For Dijkstra: " + duration.toNanos() + " nanoseconds"+'\n');
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            dijkDetes=detes.toString();
-            System.out.println("DijkstraDetes: "+dijkDetes);
             //<editor-fold defaultstate="collapsed" desc="Animation Control">
 
             CanvasController.st.setOnFinished(ev -> {
@@ -568,14 +524,14 @@ public class Algorithm implements Initializable {
                 ft1.play();
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
+                detes=new StringBuilder();
+                detes.append("Total Time Required For Dijkstra: " + duration.toMillis() + " milliseconds"+'\n');
+                detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-                //CanvasController.textFlow.appendText("---Finished--\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
@@ -600,7 +556,7 @@ public class Algorithm implements Initializable {
             CanvasController.universalNode=source;
             all=new StringBuilder();
             finished=false;
-
+            Instant start = Instant.now();
             CanvasController.st = new SequentialTransition();
             int sz = Integer.MIN_VALUE;
             for (CanvasController.NodeFX n : CanvasController.circles) {
@@ -608,10 +564,6 @@ public class Algorithm implements Initializable {
                     sz = Integer.parseInt(n.node.name);
                 }
             }
-
-            //Start measuring time
-            Instant start = Instant.now();
-
             double[][] dist = new double[sz][sz];
             Edge[][] floydEdges=new Edge[sz][sz];
             Node[] floydNodes= new Node[sz];
@@ -679,9 +631,7 @@ public class Algorithm implements Initializable {
                                 all.append(str);
                                 FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                                 fd.setOnFinished(e -> {
-                                    if(!CanvasController.compared) {
-                                        CanvasController.textFlow.appendText(str);
-                                    }
+                                    CanvasController.textFlow.appendText(str);
                                 });
                                 fd.onFinishedProperty();
                                 CanvasController.st.getChildren().add(fd);
@@ -706,21 +656,8 @@ public class Algorithm implements Initializable {
 
             // Calculate duration
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total time for Floyd Warshall: " + duration.toNanos() + " nanoseconds");
-            detes=new StringBuilder();
-            StringBuilder str=new StringBuilder();
+            System.out.println("Total time for Floyd Warshall: " + duration.toMillis() + " milliseconds");
 
-            if(dist[Integer.valueOf(source.name)-1][Integer.valueOf(source.name)-1]<0){
-                str.append("Negative Cycle Detected\n");
-            }
-            else{
-                str.append("No Negative Cycle Detected\n");
-            }
-            detes.append("Total Time Required For Floyd Warshall: " + duration.toNanos() + " nanoseconds"+'\n');
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            detes.append(str);
-            fwDetes=detes.toString();
-            System.out.println("FloydWarshall Detes: "+fwDetes);
             //<editor-fold defaultstate="collapsed" desc="Animation Control">
             CanvasController.st.setOnFinished(ev -> {
                 for (CanvasController.NodeFX n : CanvasController.circles) {
@@ -742,14 +679,23 @@ public class Algorithm implements Initializable {
                 ft1.play();
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
+                detes=new StringBuilder();
+                StringBuilder str=new StringBuilder();
+
+                if(dist[Integer.valueOf(source.name)-1][Integer.valueOf(source.name)-1]<0){
+                    str.append("Negative Cycle Present");
+                }
+                else{
+                    str.append("No Negative Cycle Present");
+                }
+                detes.append("Total Time Required For Floyd Warshall: " + duration.toMillis() + " milliseconds"+'\n');
+                detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
+                detes.append(str);
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-                //CanvasController.textFlow.appendText("---Finished--\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
@@ -775,7 +721,7 @@ public class Algorithm implements Initializable {
             CanvasController.universalNode=source;
             all=new StringBuilder();
             finished=false;
-
+            Instant start=Instant.now();
             //<editor-fold defaultstate="collapsed" desc="Animation Control">
             for (CanvasController.NodeFX n : CanvasController.circles) {
                 CanvasController.distances.add(n.distance);
@@ -790,9 +736,6 @@ public class Algorithm implements Initializable {
             source.circle.distance.setText("Dist. : " + 0);
             //</editor-fold>
 
-            //Start measuring time
-            Instant start = Instant.now();
-
             source.minDistance = 0;
 
             double[][] distancesArray = new double[CanvasController.bellmanEdges.size()][CanvasController.circles.size()];
@@ -805,9 +748,7 @@ public class Algorithm implements Initializable {
                 all.append(iterationLabel);
                 FadeTransition fdIterationLabel = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fdIterationLabel.setOnFinished(d -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(iterationLabel);
-                    }
+                    CanvasController.textFlow.appendText(iterationLabel);
                 });
                 fdIterationLabel.onFinishedProperty();
                 CanvasController.st.getChildren().add(fdIterationLabel);
@@ -853,9 +794,7 @@ public class Algorithm implements Initializable {
                         all.append(updateMessage);
                         FadeTransition fdUpdateMessage = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdUpdateMessage.setOnFinished(ev -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(updateMessage);
-                            }
+                            CanvasController.textFlow.appendText(updateMessage);
                         });
                         fdUpdateMessage.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdUpdateMessage);
@@ -891,9 +830,7 @@ public class Algorithm implements Initializable {
                         all.append(updateMessage);
                         FadeTransition fdUpdateMessage = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdUpdateMessage.setOnFinished(ev -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(updateMessage);
-                            }
+                            CanvasController.textFlow.appendText(updateMessage);
                         });
                         fdUpdateMessage.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdUpdateMessage);
@@ -924,9 +861,7 @@ public class Algorithm implements Initializable {
                     all.append(noChangeMessage);
                     FadeTransition fdNoChangeMessage = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                     fdNoChangeMessage.setOnFinished(ev -> {
-                        if(!CanvasController.compared) {
-                            CanvasController.textFlow.appendText(noChangeMessage);
-                        }
+                        CanvasController.textFlow.appendText(noChangeMessage);
                     });
                     fdNoChangeMessage.onFinishedProperty();
                     CanvasController.st.getChildren().add(fdNoChangeMessage);
@@ -948,26 +883,21 @@ public class Algorithm implements Initializable {
             }
             Instant end = Instant.now();
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total time for Bellman Ford: " + duration.toNanos() + " nanoseconds");
-
-            boolean finalNegativeCycleDetected = negativeCycleDetected;
-            detes=new StringBuilder();
-            detes.append("Total Time Required For Bellman Ford: " + duration.toNanos() + " nanoseconds\n");
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            if(finalNegativeCycleDetected)
-                detes.append("Negative Cycle Detected.\n");
-            else
-                detes.append("No Negative Cycle Detected.\n");
-            bfDetes=detes.toString();
-            System.out.println("BellmanFord Detes: "+bfDetes);
+            System.out.println("Total time for Bellman Ford: " + duration.toMillis() + " milliseconds");
 
             //<editor-fold defaultstate="collapsed" desc="Animation Control">
+            boolean finalNegativeCycleDetected = negativeCycleDetected;
             CanvasController.st.setOnFinished(ev -> {
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
+                detes=new StringBuilder();
+                detes.append("Total Time Required For Bellman Ford: " + duration.toMillis() + " milliseconds\n");
+                detes.append("Number of nodes visited: "+CanvasController.circles.size()+'\n');
+                if(finalNegativeCycleDetected)
+                    detes.append("Negative cycle detected.\n");
+                else
+                    detes.append("No negative cycle detected.\n");
+                //negative cycle, no of iteration
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
                 for (CanvasController.NodeFX n : CanvasController.circles) {
                     FillTransition ft1 = new FillTransition(Duration.millis(CanvasController.time), n);
                     ft1.setToValue(Color.BLACK);
@@ -980,7 +910,7 @@ public class Algorithm implements Initializable {
                 playPauseImage.setImage(image);
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                //CanvasController.textFlow.appendText("\t---Finished--\n");
+                CanvasController.textFlow.appendText("\t---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
@@ -1003,6 +933,7 @@ public class Algorithm implements Initializable {
 
     class Kruskal {
 
+        Instant start=Instant.now();
         int mstValue = 0;
         Node findParent(Node x) {
             if (x != x.previous) {
@@ -1043,9 +974,7 @@ public class Algorithm implements Initializable {
                 all.append(s);
                 FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fd.setOnFinished(e -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(s);
-                    }
+                    CanvasController.textFlow.appendText(s);
                 });
                 fd.onFinishedProperty();
                 CanvasController.st.getChildren().add(fd);
@@ -1054,9 +983,7 @@ public class Algorithm implements Initializable {
             all.append(s);
             FadeTransition fdss = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
             fdss.setOnFinished(ev -> {
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.appendText(s);
-                }
+                CanvasController.textFlow.appendText(s);
             });
             fdss.onFinishedProperty();
             CanvasController.st.getChildren().add(fdss);
@@ -1070,9 +997,6 @@ public class Algorithm implements Initializable {
                 }
             });
 
-            //Start measuring time
-            Instant start = Instant.now();
-
             for (Edge e : CanvasController.mstEdges) {
 
                 StrokeTransition ft1 = new StrokeTransition(Duration.millis(CanvasController.time), e.line);
@@ -1084,9 +1008,7 @@ public class Algorithm implements Initializable {
                 all.append(se);
                 FadeTransition fdx = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fdx.setOnFinished(evx -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(se);
-                    }
+                    CanvasController.textFlow.appendText(se);
                 });
                 fdx.onFinishedProperty();
                 CanvasController.st.getChildren().add(fdx);
@@ -1095,9 +1017,7 @@ public class Algorithm implements Initializable {
                 all.append(s1);
                 FadeTransition fdx2 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fdx2.setOnFinished(evx -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(s1);
-                    }
+                    CanvasController.textFlow.appendText(s1);
                 });
                 fdx2.onFinishedProperty();
                 CanvasController.st.getChildren().add(fdx2);
@@ -1106,9 +1026,7 @@ public class Algorithm implements Initializable {
                 all.append(s2);
                 FadeTransition fdx3 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fdx3.setOnFinished(evx -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(s2);
-                    }
+                    CanvasController.textFlow.appendText(s2);
                 });
                 fdx3.onFinishedProperty();
                 CanvasController.st.getChildren().add(fdx3);
@@ -1127,25 +1045,19 @@ public class Algorithm implements Initializable {
                         all.append(sa2);
                         FadeTransition fdx4 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdx4.setOnFinished(evx -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(sa);
-                            }
+                            CanvasController.textFlow.appendText(sa);
                         });
                         fdx4.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdx4);
                         FadeTransition fdx5 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdx5.setOnFinished(evx -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(sa1);
-                            }
+                            CanvasController.textFlow.appendText(sa1);
                         });
                         fdx5.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdx5);
                         FadeTransition fdx6 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdx6.setOnFinished(evx -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(sa2);
-                            }
+                            CanvasController.textFlow.appendText(sa2);
                         });
                         fdx6.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdx6);
@@ -1168,9 +1080,7 @@ public class Algorithm implements Initializable {
                         all.append(sa);
                         FadeTransition fdx7 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                         fdx7.setOnFinished(evx -> {
-                            if(!CanvasController.compared) {
-                                CanvasController.textFlow.appendText(sa);
-                            }
+                            CanvasController.textFlow.appendText(sa);
                         });
                         fdx7.onFinishedProperty();
                         CanvasController.st.getChildren().add(fdx7);
@@ -1188,26 +1098,22 @@ public class Algorithm implements Initializable {
 
             Instant end = Instant.now();
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total time for Kruskal: " + duration.toNanos() + " nanoseconds");
+            System.out.println("Total time for Kruskal: " + duration.toMillis() + " milliseconds");
 
-            detes=new StringBuilder();
-            detes.append("Total Time Required For Kruskal: " + duration.toNanos() + " nanoseconds\n");
-            detes.append("Minimum Cost Of The Graph: " + mstValue+'\n');
-            detes.append("Number Of Nodes Unioned: "+unioned+'\n');
-            krusDetes=detes.toString();
-            System.out.println("Kruskal Detes: "+krusDetes);
             //<editor-fold defaultstate="collapsed" desc="Animation after algorithm is finished">
             CanvasController.st.setOnFinished(ev -> {
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
+                detes=new StringBuilder();
+                detes.append("Total Time Required For Kruskal: " + duration.toMillis() + " milliseconds\n");
+                detes.append("Minimum Cost Of The Graph: " + mstValue+'\n');
+                detes.append("Number Of Nodes Unioned: "+unioned+'\n');
+                // mst value,no of nodes unioned, cycles detected
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-                //CanvasController.textFlow.appendText("\t---Finished--\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("\t---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }
@@ -1232,6 +1138,7 @@ public class Algorithm implements Initializable {
         List<Node> visited= new ArrayList<>();
         int mstValue = 0;
         Prims() {
+            Instant start = Instant.now();
             Node source=CanvasController.circles.getFirst().node;
             all=new StringBuilder();
             for (CanvasController.NodeFX node : CanvasController.circles) {
@@ -1242,10 +1149,6 @@ public class Algorithm implements Initializable {
             CanvasController.st = new SequentialTransition();
             PriorityQueue<Node> pq = new PriorityQueue<>();
             pq.add(source);
-
-            //Start measuring time
-            Instant start = Instant.now();
-
             source.minDistance=0;
             while (!pq.isEmpty()) {
                 Node u = pq.poll();
@@ -1264,9 +1167,7 @@ public class Algorithm implements Initializable {
                 final String str2 = str;
                 FadeTransition fd = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                 fd.setOnFinished(e -> {
-                    if(!CanvasController.compared) {
-                        CanvasController.textFlow.appendText(str2);
-                    }
+                    CanvasController.textFlow.appendText(str2);
                 });
                 fd.onFinishedProperty();
                 CanvasController.st.getChildren().add(fd);
@@ -1308,9 +1209,7 @@ public class Algorithm implements Initializable {
                             final String str1 = str;
                             FadeTransition fd2 = new FadeTransition(Duration.millis(10), CanvasController.textFlow);
                             fd2.setOnFinished(ev -> {
-                                if(!CanvasController.compared) {
-                                    CanvasController.textFlow.appendText(str1);
-                                }
+                                CanvasController.textFlow.appendText(str1);
                             });
                             fd2.onFinishedProperty();
                             CanvasController.st.getChildren().add(fd2);
@@ -1358,15 +1257,7 @@ public class Algorithm implements Initializable {
             }
             Instant end = Instant.now();
             java.time.Duration duration= java.time.Duration.between(start,end);
-            System.out.println("Total time for Prim's: " + duration.toNanos() + " nanoseconds");
-
-            detes=new StringBuilder();
-            detes.append("Total Time Required For Prim's: " + duration.toNanos() + " nanoseconds\n");
-            detes.append("Minimum Cost Of The Graph: " + mstValue+'\n');
-            detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
-            primsDetes=detes.toString();
-            System.out.println("Prims Detes: "+primsDetes);
-
+            System.out.println("Total time for Prim's: " + duration.toMillis() + " milliseconds");
             CanvasController.st.setOnFinished(ev -> {
                 for (CanvasController.NodeFX n :CanvasController. circles) {
                     FillTransition ft1 = new FillTransition(Duration.millis(CanvasController.time), n);
@@ -1375,15 +1266,17 @@ public class Algorithm implements Initializable {
                 }
                 Image image = new Image(getClass().getResourceAsStream("/play_arrow_black_48x48.png"));
                 playPauseImage.setImage(image);
+                detes=new StringBuilder();
+                detes.append("Total Time Required For Prim's: " + duration.toMillis() + " milliseconds\n");
+                detes.append("Minimum Cost Of The Graph: " + mstValue+'\n');
+                detes.append("Number Of Nodes Visited: "+CanvasController.circles.size()+'\n');
+                //mst value,nodes visited, repeated nodes
                 CanvasController.paused = true;
                 CanvasController.playing = false;
-                all.append("\n\t\t---Finished--\n\n");
-                if(!CanvasController.compared) {
-                    CanvasController.textFlow.clear();
-                    CanvasController.textFlow.appendText(all.toString());
-                }
-                //CanvasController.textFlow.appendText("Minimum Cost of the Graph " + mstValue+"\n");
-                //CanvasController.textFlow.appendText("\t---Finished--\n");
+                CanvasController.textFlow.clear();
+                CanvasController.textFlow.appendText(all.toString());
+                CanvasController.textFlow.appendText("Minimum Cost of the Graph " + mstValue+"\n");
+                CanvasController.textFlow.appendText("\t---Finished--\n");
                 if(CanvasController.detailed){
                     CanvasController.textFlow.appendText(detes.toString());
                 }

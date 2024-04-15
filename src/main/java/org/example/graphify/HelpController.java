@@ -1071,7 +1071,7 @@ public class HelpController implements Initializable {
         Hyperlink tutorialspointLink = new Hyperlink("Tutorialspoint - Bellman-Ford Algorithm");
         tutorialspointLink.setOnAction(e -> {
             try {
-                Desktop.getDesktop().browse(new URI("https://www.tutorialspoint.com/Bellman-Ford-Algorithm"));
+                Desktop.getDesktop().browse(new URI("https://www.tutorialspoint.com/Bellman-Ford-Algorithm-for-Shortest-Paths#:~:text=Bellman%2DFord%20algorithm%20is%20used,we%20can%20handle%20it%20easily."));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             } catch (URISyntaxException ex) {
