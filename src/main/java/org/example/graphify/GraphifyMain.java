@@ -5,6 +5,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -21,6 +22,8 @@ public class GraphifyMain extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(GraphifyMain.class.getResource("Welcome.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         primaryStage.setTitle("Graphify");
+        Image icon=new Image(getClass().getResourceAsStream("/icon.png"));
+        primaryStage.getIcons().add(icon);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {

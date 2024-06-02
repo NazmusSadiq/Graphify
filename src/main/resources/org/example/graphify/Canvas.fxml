@@ -37,7 +37,7 @@
                     </children>
                 </Group>
                 <Pane fx:id="border" layoutX="199.0" layoutY="74.0" prefHeight="546.0" prefWidth="701.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="74.0" />
-                <HiddenSidesPane fx:id="hiddenPane" layoutX="200.0" layoutY="71.0" prefHeight="546.0" prefWidth="701.0" style="-fx-background-color: #faeae8;" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="73.0">
+                <HiddenSidesPane fx:id="hiddenPane" layoutX="200.0" layoutY="71.0" prefHeight="553.0" prefWidth="701.0" style="-fx-background-color: #faeae8;" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="73.0">
                     <cursor>
                         <Cursor fx:constant="CROSSHAIR" />
                     </cursor>
@@ -51,7 +51,7 @@
         </AnchorPane>
       <AnchorPane layoutX="199.0" prefHeight="75.0" prefWidth="701.0" style="-fx-background-color: #1a1d2e;" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="-1.0">
          <children>
-            <JFXButton fx:id="skipButton" contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="16.0" onAction="#SkipHandle" prefHeight="43.0" prefWidth="38.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="100.0">
+            <JFXButton fx:id="skipButton" contentDisplay="GRAPHIC_ONLY" layoutX="557.0" layoutY="16.0" onAction="#SkipHandle" prefHeight="43.0" prefWidth="38.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="160.0">
                <graphic>
                   <ImageView fx:id="skipImage" fitHeight="24.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -67,7 +67,7 @@
                   </Tooltip>
                </tooltip>
             </JFXButton>
-            <JFXButton fx:id="reloadButton" contentDisplay="GRAPHIC_ONLY" layoutX="600.0" layoutY="17.0" onAction="#ReloadHandle" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="43.0">
+            <JFXButton fx:id="reloadButton" contentDisplay="GRAPHIC_ONLY" layoutX="600.0" layoutY="17.0" onAction="#ReloadHandle" prefHeight="34.0" prefWidth="36.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="60.0">
                <graphic>
                   <ImageView fx:id="reloadImage" fitHeight="32.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -83,19 +83,19 @@
                   </Tooltip>
                </tooltip>
             </JFXButton>
-                  <JFXButton fx:id="canvasBackButton" contentDisplay="GRAPHIC_ONLY" layoutX="392.0" layoutY="16.0" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="240.0">
+                  <JFXButton fx:id="initButton" contentDisplay="GRAPHIC_ONLY" layoutX="324.0" layoutY="19.0" onAction="#InitHandle" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="330.0">
                       <graphic>
-                          <ImageView fx:id="canvasBack" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true">
+                          <ImageView fitHeight="27.0" fitWidth="20.0" pickOnBounds="true">
                               <image>
-                                  <Image url="@../../../arrow_back_black_96x96.png" />
+                                  <Image url="@../../../init.png" />
                               </image>
                           </ImageView>
                       </graphic>
                <tooltip>
-                  <Tooltip text="Go Back" />
+                  <Tooltip text="Initial State" />
                </tooltip>
                   </JFXButton>
-                  <JFXButton fx:id="playPauseButton" contentDisplay="GRAPHIC_ONLY" layoutX="442.0" layoutY="16.0" onAction="#PlayPauseHandle" prefHeight="38.0" prefWidth="44.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="190.0">
+                  <JFXButton fx:id="playPauseButton" contentDisplay="GRAPHIC_ONLY" layoutX="442.0" layoutY="16.0" onAction="#PlayPauseHandle" prefHeight="38.0" prefWidth="44.0" style="-fx-background-radius: 100;" AnchorPane.rightAnchor="240.0">
                       <graphic>
                           <ImageView fx:id="playPauseImage" fitHeight="37.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                               <image>
@@ -104,14 +104,14 @@
                           </ImageView>
                       </graphic>
                       <tooltip>
-                          <Tooltip text="Pause" textAlignment="CENTER">
+                          <Tooltip fx:id="playPause" text="Pause" textAlignment="CENTER">
                               <font>
                                   <Font size="12.5" />
                               </font>
                           </Tooltip>
                       </tooltip>
                   </JFXButton>
-                  <JFXNodesList fx:id="nodeList" layoutX="496.0" layoutY="13.0" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="150.0">
+                  <JFXNodesList fx:id="nodeList" layoutX="496.0" layoutY="13.0" prefHeight="40.0" prefWidth="40.0" AnchorPane.rightAnchor="115.0">
                <children>
                           <JFXButton fx:id="gear" contentDisplay="GRAPHIC_ONLY" prefHeight="51.0" prefWidth="40.0" style="-fx-background-radius: 100;">
                               <tooltip>
@@ -131,23 +131,76 @@
                           </JFXButton>
                </children>
                   </JFXNodesList>
-            <JFXButton fx:id="graphButton" buttonType="RAISED" layoutX="46.0" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: red;" text="Graph" textFill="#fcfcfc">
+            <JFXButton fx:id="graphButton" buttonType="RAISED" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: #d40d0d;" text="Graph" textFill="#fcfcfc">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton fx:id="detailsButton" buttonType="RAISED" layoutX="187.0" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: red;" text="Details" textFill="#fcfcfc">
+            <JFXButton fx:id="detailsButton" buttonType="RAISED" layoutX="89.0" layoutY="19.0" prefHeight="38.0" prefWidth="69.0" style="-fx-background-color: #d40d0d;" text="Details" textFill="#fcfcfc">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
+            </JFXButton>
+            <JFXButton fx:id="compareButton" buttonType="RAISED" layoutX="175.0" layoutY="19.0" prefHeight="38.0" prefWidth="82.0" style="-fx-background-color: #d40d0d;" text="Compare" textFill="#fcfcfc">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </JFXButton>
+            <JFXButton fx:id="ssButton" contentDisplay="GRAPHIC_ONLY" layoutX="648.0" layoutY="17.0" onAction="#ScrrenshotHandle" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="10.0">
+               <graphic>
+                  <ImageView fx:id="canvasBack1" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../ss.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Take Screenshot" />
+               </tooltip>
+            </JFXButton>
+            <JFXButton fx:id="prevButton" contentDisplay="GRAPHIC_ONLY" layoutX="363.0" layoutY="19.0" onAction="#PrevStepHandle" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="290.0">
+               <graphic>
+                  <ImageView fx:id="canvasBack2" fitHeight="28.0" fitWidth="25.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../prev.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Previous Step" />
+               </tooltip>
+            </JFXButton>
+            <JFXButton fx:id="nextButton" contentDisplay="GRAPHIC_ONLY" layoutX="408.0" layoutY="19.0" onAction="#NextStepHandle" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="200.0">
+               <graphic>
+                  <ImageView fx:id="canvasBack21" fitHeight="26.0" fitWidth="28.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../next.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Next Step" />
+               </tooltip>
+            </JFXButton>
+            <JFXButton fx:id="canvasBackButton" contentDisplay="GRAPHIC_ONLY" layoutX="276.0" layoutY="16.0" prefHeight="38.0" prefWidth="44.0" AnchorPane.rightAnchor="370.0">
+               <graphic>
+                  <ImageView fx:id="canvasBack" fitHeight="33.0" fitWidth="33.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../../../home-icon-ui-icon-basic-ui-icon-vector-logo-button-line-png-clipart-thumbnail.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <tooltip>
+                  <Tooltip text="Go Back" />
+               </tooltip>
             </JFXButton>
          </children>
       </AnchorPane>
-          <AnchorPane prefHeight="464.0" prefWidth="201.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-3.0">
+          <AnchorPane prefHeight="620.0" prefWidth="201.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="-4.0" AnchorPane.topAnchor="-3.0">
               <children>
                   <HBox alignment="CENTER" layoutX="10.0" layoutY="519.0" prefHeight="72.0" prefWidth="181.0" spacing="10.0" AnchorPane.bottomAnchor="0.0">
                       <children>
-                          <JFXButton fx:id="clearButton" buttonType="RAISED" onAction="#ClearHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: red;" text="CLEAR" textFill="WHITE">
+                          <JFXButton fx:id="clearButton" buttonType="RAISED" onAction="#ClearHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: #d40d0d;" text="CLEAR" textFill="WHITE">
                               <font>
                                   <Font name="Junction Regular Regular" size="13.0" />
                               </font>
@@ -155,7 +208,7 @@
                                   <Cursor fx:constant="HAND" />
                               </cursor>
                           </JFXButton>
-                          <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#ResetHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: red;" text="RESET" textFill="WHITE">
+                          <JFXButton fx:id="resetButton" buttonType="RAISED" onAction="#ResetHandle" prefHeight="31.0" prefWidth="76.0" style="-fx-background-color: #d40d0d;" text="RESET" textFill="WHITE">
                               <font>
                                   <Font name="Junction Regular Regular" size="13.0" />
                               </font>
@@ -251,10 +304,7 @@
                                   <Insets left="-1.0" />
                               </padding>
                           </JFXToggleButton>
-                  <JFXToggleButton fx:id="primsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="239.0" minWidth="-Infinity" onAction="#PrimsHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Prim's" textFill="#fcfcfc" toggleColor="#ff5722" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="7">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="algoToggleGroup1" />
-                     </toggleGroup>
+                  <JFXToggleButton fx:id="primsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="239.0" minWidth="-Infinity" onAction="#PrimsHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Prim's" textFill="#fcfcfc" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="7">
                      <font>
                         <Font name="Roboto Light" size="20.0" />
                      </font>

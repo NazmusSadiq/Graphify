@@ -36,6 +36,7 @@ public class SelectionController implements Initializable {
     private AnchorPane panel1;
     @FXML
     private ImageView imgv,imgc;
+
     static CanvasController cref;
     Boolean canvas=true;
     @Override
@@ -56,6 +57,7 @@ public class SelectionController implements Initializable {
         // Thread for button control
         panel1Next.setDisable(true);
         imgv.setVisible(false);
+
         if(init){
             changePossibles();
         }
@@ -159,6 +161,7 @@ public class SelectionController implements Initializable {
             Scene newScene = new Scene(root);
             newScene.getStylesheets().add(getClass().getResource("/Styling.css").toExternalForm());
             GraphifyMain.primaryStage.setScene(newScene);
+            cref=loader.getController();
         } catch (IOException ex) {
             Logger.getLogger(SelectionController.class.getName()).log(Level.SEVERE, null, ex);
         }

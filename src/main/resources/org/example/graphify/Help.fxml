@@ -22,9 +22,9 @@
       <StackPane fx:id="stackRoot" prefHeight="620.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane fx:id="anchorRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox layoutX="199.0" layoutY="-1.0" prefHeight="90.0" prefWidth="601.0" style="-fx-alignment: CENTER;" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <HBox layoutX="86.0" layoutY="-1.0" prefHeight="90.0" prefWidth="814.0" style="-fx-alignment: CENTER; -fx-background-color: #1a1d2e;" AnchorPane.leftAnchor="86.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label fx:id="title" alignment="CENTER" prefHeight="88.0" prefWidth="591.0" text="Select An Algorithm" textAlignment="CENTER" textFill="#036b47" wrapText="true">
+                  <Label fx:id="title" alignment="CENTER" prefHeight="88.0" prefWidth="342.0" text="Select An Algorithm" textAlignment="CENTER" textFill="RED" wrapText="true">
                      <font>
                         <Font size="37.0" />
                      </font>
@@ -33,17 +33,17 @@
             </HBox>
             <ScrollPane fx:id="scrollPane" hbarPolicy="ALWAYS" layoutY="88.0" prefHeight="512.0" prefWidth="601.0" style="-fx-background-color: BLACK;" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="199.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="88.0">
                <content>
-                  <TextFlow fx:id="textArea" prefHeight="495.0" prefWidth="682.0" style="-fx-background-color: #7EF4CC;" textAlignment="JUSTIFY">
+                  <TextFlow fx:id="textArea" prefHeight="495.0" prefWidth="682.0" style="-fx-background-color: #7bff91;" textAlignment="JUSTIFY">
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding></TextFlow>
                </content>
             </ScrollPane>
-            <AnchorPane prefHeight="627.0" prefWidth="201.0" style="-fx-background-color: #7a4f04;" AnchorPane.bottomAnchor="-7.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane prefHeight="627.0" prefWidth="201.0" style="-fx-background-color: #1a1d2e;" AnchorPane.bottomAnchor="-7.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <JFXButton fx:id="canvasBackButton" contentDisplay="GRAPHIC_ONLY" prefHeight="30.0" prefWidth="34.0">
+                  <JFXButton fx:id="canvasBackButton" contentDisplay="GRAPHIC_ONLY" layoutX="8.0" layoutY="14.0" prefHeight="30.0" prefWidth="34.0">
                      <graphic>
-                        <ImageView fx:id="canvasBack" fitHeight="29.0" fitWidth="28.0" pickOnBounds="true">
+                        <ImageView fx:id="canvasBack" fitHeight="35.0" fitWidth="41.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../../arrow_back_black_96x96.png" />
                            </image>
@@ -65,7 +65,7 @@
                         <RowConstraints maxHeight="61.0" minHeight="10.0" prefHeight="48.0" valignment="CENTER" />
                      </rowConstraints>
                      <children>
-                        <Label prefHeight="31.0" prefWidth="106.0" text="Algorithms" textFill="#7ef4cc" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <Label prefHeight="31.0" prefWidth="106.0" text="Algorithms" textFill="#54ff73" underline="true" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Segoe UI Historic" size="21.0" />
                            </font>
@@ -73,7 +73,7 @@
                               <Insets bottom="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <JFXToggleButton id="spec" fx:id="bfsButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#BFSHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="BFS" toggleColor="#ff5722" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="1">
+                        <JFXToggleButton id="spec" fx:id="bfsButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#BFSHandle" prefHeight="59.0" prefWidth="210.0" selected="true" size="9.0" text="BFS" textFill="WHITE" toggleColor="#ff5722" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -84,7 +84,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="dfsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="46.0" minWidth="-Infinity" onAction="#DFSHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="DFS" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="2">
+                        <JFXToggleButton fx:id="dfsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="46.0" minWidth="-Infinity" onAction="#DFSHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="DFS" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -92,7 +92,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="dijkstraButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="91.0" minWidth="-Infinity" onAction="#DijkstraHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="Dijkstra" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="3">
+                        <JFXToggleButton fx:id="dijkstraButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="91.0" minWidth="-Infinity" onAction="#DijkstraHandle" prefHeight="59.0" prefWidth="210.0" size="9.0" text="Dijkstra" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="3">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -100,7 +100,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="bellmanButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="137.0" minWidth="-Infinity" onAction="#BellmanHandle" prefHeight="70.0" prefWidth="210.0" size="9.0" text="Bellman Ford" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="4">
+                        <JFXToggleButton fx:id="bellmanButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="137.0" minWidth="-Infinity" onAction="#BellmanHandle" prefHeight="70.0" prefWidth="210.0" size="9.0" text="Bellman Ford" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="4">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -111,7 +111,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="floydButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#FloydWarshallHandle" prefHeight="45.0" prefWidth="210.0" size="9.0" text="Floyd Warshall" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="5">
+                        <JFXToggleButton fx:id="floydButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#FloydWarshallHandle" prefHeight="45.0" prefWidth="210.0" size="9.0" text="Floyd Warshall" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="5">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -119,7 +119,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="kruskalButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#KruskalHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Kruskal" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="6">
+                        <JFXToggleButton fx:id="kruskalButton" alignment="CENTER_LEFT" minWidth="-Infinity" onAction="#KruskalHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Kruskal" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="6">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>
@@ -130,7 +130,7 @@
                               <Insets left="-1.0" />
                            </padding>
                         </JFXToggleButton>
-                        <JFXToggleButton fx:id="primsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="239.0" minWidth="-Infinity" onAction="#PrimsHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Prim's" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#546e7a" unToggleLineColor="#90a4ae" GridPane.rowIndex="7">
+                        <JFXToggleButton fx:id="primsButton" alignment="CENTER_LEFT" layoutX="15.0" layoutY="239.0" minWidth="-Infinity" onAction="#PrimsHandle" prefHeight="78.0" prefWidth="210.0" size="9.0" text="Prim's" textFill="WHITE" toggleColor="#ff5722" toggleGroup="$algoToggleGroup" toggleLineColor="#ffab91" unToggleColor="#949494" unToggleLineColor="#f2f2f2" GridPane.rowIndex="7">
                            <font>
                               <Font name="Roboto Light" size="20.0" />
                            </font>

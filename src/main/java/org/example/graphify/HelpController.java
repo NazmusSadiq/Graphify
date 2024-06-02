@@ -53,6 +53,7 @@ public class HelpController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         textArea.prefWidthProperty().bind(scrollPane.widthProperty());
         textArea.prefHeightProperty().bind(scrollPane.heightProperty());
+        BFSHandle(null);
         canvasBackButton.setOnAction(e -> {
             try {
                 Parent root = FXMLLoader.load(getClass().getResource("Selection.fxml"));
@@ -72,7 +73,7 @@ public class HelpController implements Initializable {
         textArea.getChildren().clear();
 
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -280,7 +281,7 @@ public class HelpController implements Initializable {
         textArea.getChildren().clear();
 
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
-        Label introTitle = new Label("Introduction:\n\n");
+        Label introTitle = new Label("\nIntroduction:\n\n");
         introTitle.setWrapText(true);
         introTitle.setMaxHeight(Double.MAX_VALUE);
         introTitle.setTextAlignment(TextAlignment.JUSTIFY);
@@ -492,7 +493,7 @@ public class HelpController implements Initializable {
 
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
 
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -634,7 +635,7 @@ public class HelpController implements Initializable {
         complexityTitle.setWrappingWidth(scrollPane.getPrefWidth());
         complexityTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        descriptionLabel = new Label("The time complexity of the DFS algorithm is represented in the form of O(E log V), where V is the number of nodes and E is the number of edges.\n"
+        descriptionLabel = new Label("The time complexity of the DFS algorithm is represented in the form of O(E*logV), where V is the number of nodes and E is the number of edges.\n"
                 + "The space complexity of the algorithm is O(V)\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
@@ -702,7 +703,7 @@ public class HelpController implements Initializable {
         textArea.getChildren().clear();
 
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -900,7 +901,7 @@ public class HelpController implements Initializable {
         textArea.getChildren().clear();
 
     //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -1095,7 +1096,7 @@ public class HelpController implements Initializable {
         textArea.getChildren().clear();
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
 
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -1297,7 +1298,7 @@ public class HelpController implements Initializable {
 
         //<editor-fold defaultstate="collapsed" desc="Setting Up Text">
 
-        Label descriptionLabel = new Label("Introduction:\n\n");
+        Label descriptionLabel = new Label("\nIntroduction:\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
         descriptionLabel.setTextAlignment(TextAlignment.JUSTIFY);
@@ -1437,7 +1438,7 @@ public class HelpController implements Initializable {
         complexityTitle.setWrappingWidth(scrollPane.getPrefWidth());
         complexityTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));
 
-        descriptionLabel = new Label("With an adjacency list implementation, the time complexity is O(ElogV), where " +
+        descriptionLabel = new Label("With an adjacency list implementation, the time complexity is O(E*logV), where " +
                 "E is the number of edges, V is the number of vertices.\nThe space complexity is O(V+E) for the adjacency list representation.\n\n");
         descriptionLabel.setWrapText(true);
         descriptionLabel.setMaxHeight(Double.MAX_VALUE);
